@@ -34,6 +34,19 @@ class Home extends Component {
     }
 
     async sendRequest() {
+        if (!this.state.name || this.state.rating === "0" || this.state.platform === "0"){
+            alert("Movie Name, Rating & Watched Using needs to be filled in");
+            return 0;
+        }
+        if (this.state.requestSent){
+            alert("Request has been sent, don't try twice...");
+            return 0;
+        }
+        this.setState({
+            ...this.state,
+            requestSent: true,
+        });
+        alert("Sending...");
         const name = this.state.name;
         const rating = this.state.rating;
         const platform = this.state.platform;
@@ -52,6 +65,12 @@ class Home extends Component {
         });
         const content = await response.json();
         alert(content.message);
+        if (!content.success) {
+            this.setState({
+                ...this.state,
+                requestSent: false,
+            });
+        }
     }
 
     render() {
