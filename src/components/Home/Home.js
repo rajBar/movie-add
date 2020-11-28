@@ -87,7 +87,7 @@ class Home extends Component {
                 </select>
                 <h4>Password</h4>
                 <input
-                    type="text"
+                    type="password"
                     name="password"
                     onChange={this.passwordChange}
                 />
