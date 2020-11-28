@@ -33,38 +33,40 @@ class Home extends Component {
         this.setState({password: event.target.value});
     }
 
-    sendRequest() {
+    async sendRequest() {
         const name = this.state.name;
         const rating = this.state.rating;
         const platform = this.state.platform;
         const password = this.state.password;
-        console.log(name);
-        console.log(rating);
-        console.log(platform);
-        console.log(password);
-        const url = "localhost:2010/bash/movie-add?" +
+        const url = "https://raj.bariah.com:2010/bash/movie-add?" +
             "name=" + name +
             "&rating=" + rating +
-            "&platform=" + platform;
-        console.log(url);
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send();
+            "&platform=" + platform +
+            "&password=" + password;
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+        const content = await response.json();
+        alert(content.message);
     }
 
     render() {
         return (
             <div>
-                <h2>raj.Bar / Movie-Add</h2>
-                <h3>Movie Name:</h3>
+                <h2><a href="https://raj.bar/">raj.Bar</a> / <a href="https://raj.bar/movies/">Movie-Add</a></h2>
+                <h3 className="miniHeaders">Movie Name:</h3>
                 <input
+                    className="inputs"
                     type="text"
                     name="movie-name"
                     onChange={this.movieNameChange}
                 />
                 <h3>Rating:</h3>
-                <select value={this.state.rating} onChange={this.ratingChange}>
+                <select className="inputs" value={this.state.rating} onChange={this.ratingChange}>
                     <option value="select">select</option>
                     <option value="6">God tier</option>
                     <option value="5">Loved</option>
@@ -74,7 +76,7 @@ class Home extends Component {
                     <option value="1">Hated</option>
                 </select>
                 <h3>Watched using:</h3>
-                <select value={this.state.platform} onChange={this.platformChange}>
+                <select className="inputs" value={this.state.platform} onChange={this.platformChange}>
                     <option value="select">select</option>
                     <option value="n">Netflix</option>
                     <option value="p">Prime</option>
