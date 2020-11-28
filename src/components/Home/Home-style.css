@@ -16,3 +16,7 @@ input {
     max-width: 400px;
     width: 45%;
 }
+
+button {
+    margin-top: 5px;
+}
