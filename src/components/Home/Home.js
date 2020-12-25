@@ -93,7 +93,7 @@ class Home extends Component {
                     <option value="oldMovie">Old Movie</option>
                     <option value="tv">TV</option>
                 </select>
-                <h3 className="miniHeaders">{this.state.script === "tv" ? "TV" : "Movie"} Name:</h3>
+                <h3 className="miniHeaders">{this.state.script === "tv" ? "TV show" : "Movie"} Name:</h3>
                 <input
                     className="inputs"
                     type="text"
