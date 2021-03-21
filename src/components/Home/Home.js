@@ -121,6 +121,7 @@ class Home extends Component {
                             <option value="t">Television</option>
                             <option value="r">Rakuten</option>
                             <option value="d">Disney+</option>
+                            <option value="s">NowTV</option>
                         </select>
                     </div>) : <div/>
                 }
