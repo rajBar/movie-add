@@ -90,6 +90,7 @@ class Home extends Component {
                 <h3 className="miniHeaders">Script:</h3>
                 <select className="inputs" value={this.state.script} onChange={this.scriptChange}>
                     <option value="movie">Movie</option>
+		    <option value="yesterday">Yesterday</option>
                     <option value="oldMovie">Old Movie</option>
                     <option value="tv">TV</option>
                 </select>
@@ -110,7 +111,7 @@ class Home extends Component {
                     <option value="2">Disliked</option>
                     <option value="1">Hated</option>
                 </select>
-                {this.state.script === "movie" ?
+                {this.state.script === "movie" || this.state.script === "yesterday" ?
                     (<div>
                         <h3>Watched using:</h3>
                         <select className="inputs" value={this.state.platform} onChange={this.platformChange}>
