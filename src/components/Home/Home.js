@@ -43,7 +43,7 @@ class Home extends Component {
         const script = this.state.script;
         const name = this.state.name;
         const rating = this.state.rating;
-        const platform = this.state.script === "movie" ? this.state.platform : "1";
+        const platform = this.state.script === "movie" || this.state.script === "yesterday" ? this.state.platform : "1";
         const password = this.state.password;
 
         if (!name || rating === "0" || platform === "0"){
