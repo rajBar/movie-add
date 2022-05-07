@@ -51,7 +51,7 @@ class Home extends Component {
         const rating = this.state.rating;
         const platform = this.state.platform;
         const password = this.state.password;
-        const url = "https://raj.bariah.com:2010/bash/movie-add?" +
+        const url = "https://rajbar.hopto:2010/bash/movie-add?" +
             "name=" + name +
             "&rating=" + rating +
             "&platform=" + platform +
