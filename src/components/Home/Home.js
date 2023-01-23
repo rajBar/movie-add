@@ -60,7 +60,7 @@ class Home extends Component {
         });
         alert("Sending...");
 
-        const url = "https://rajbar.hopto.org:2010/bash/movie-add?" +
+        const url = "https://api.rajbar.duckdns.org:2010/bash/movie-add?" +
             "name=" + name +
             "&rating=" + rating +
             "&platform=" + platform +
