@@ -123,8 +123,8 @@ class Home extends Component {
                             <option value="r">Rakuten</option>
                             <option value="d">Disney+</option>
                             <option value="s">NowTV</option>
-                            <option value="l">Apple TV+</option>
                             <option value="f">Flight</option>
+                            <option value="a">Apple TV+</option>
                         </select>
                     </div>) : <div/>
                 }
