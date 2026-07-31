@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './Home-style.css';
 
 class Home extends Component {
@@ -48,34 +48,34 @@ class Home extends Component {
     }
 
     scriptChange(event) {
-        this.setState({script: event.target.value});
+        this.setState({ script: event.target.value });
     }
 
     movieNameChange(event) {
-        this.setState({name: event.target.value})
+        this.setState({ name: event.target.value })
     }
 
     ratingChange(event) {
-        this.setState({rating: event.target.value});
+        this.setState({ rating: event.target.value });
     }
 
     platformChange(event) {
-        this.setState({platform: event.target.value});
+        this.setState({ platform: event.target.value });
     }
 
     notesChange(event) {
-        this.setState({notes: event.target.value})
+        this.setState({ notes: event.target.value })
     }
 
-    passwordChange(event){
-        this.setState({password: event.target.value});
+    passwordChange(event) {
+        this.setState({ password: event.target.value });
     }
 
     async sendRequest() {
         const script = this.state.script;
         const name = this.state.name;
         const rating = this.state.rating;
-        const platform = this.state.script === "movie" || this.state.script === "yesterday" || this.state.script === "tvcurrent" ? this.state.platform : "1";
+        const platform = this.state.platform;
         const notes = this.state.script === "tvcurrent" ? "" : this.state.notes;
         const password = this.state.password;
 
@@ -85,12 +85,12 @@ class Home extends Component {
                 return 0;
             }
         } else {
-            if (!name || rating === "0" || platform === "0"){
+            if (!name || rating === "0" || platform === "0") {
                 this.showToast("Movie Name, Rating & Watched Using needs to be filled in", "error");
                 return 0;
             }
         }
-        if (this.state.loading || this.state.requestSent){
+        if (this.state.loading || this.state.requestSent) {
             this.showToast("Request has been sent, don't try twice...", "info");
             return 0;
         }
@@ -119,7 +119,7 @@ class Home extends Component {
             });
             const content = await response.json();
             this.showToast(content.message, content.success ? "success" : "error");
-            
+
             if (!content.success) {
                 this.setState({
                     loading: false,
@@ -140,7 +140,6 @@ class Home extends Component {
     }
 
     render() {
-        const showPlatform = this.state.script === "movie" || this.state.script === "yesterday" || this.state.script === "tvcurrent";
         const placeholderText = this.state.script === "tv" || this.state.script === "tvcurrent" ? "e.g., Breaking Bad" : "e.g., Inception";
 
         return (
@@ -163,9 +162,9 @@ class Home extends Component {
 
                 <div className="form-group">
                     <label className="form-label">Script</label>
-                    <select 
-                        className="inputs" 
-                        value={this.state.script} 
+                    <select
+                        className="inputs"
+                        value={this.state.script}
                         onChange={this.scriptChange}
                         disabled={this.state.loading}
                     >
@@ -192,9 +191,9 @@ class Home extends Component {
                 {this.state.script !== "tvcurrent" && (
                     <div className="form-group">
                         <label className="form-label">Rating</label>
-                        <select 
-                            className="inputs" 
-                            value={this.state.rating} 
+                        <select
+                            className="inputs"
+                            value={this.state.rating}
                             onChange={this.ratingChange}
                             disabled={this.state.loading}
                         >
@@ -209,29 +208,28 @@ class Home extends Component {
                     </div>
                 )}
 
-                {showPlatform && (
-                    <div className="form-group">
-                        <label className="form-label">Watched using</label>
-                        <select 
-                            className="inputs" 
-                            value={this.state.platform} 
-                            onChange={this.platformChange}
-                            disabled={this.state.loading}
-                        >
-                            <option value="0">Select platform...</option>
-                            <option value="n">Netflix</option>
-                            <option value="p">Prime</option>
-                            <option value="c">Cinema</option>
-                            <option value="t">Television</option>
-                            <option value="r">Rakuten</option>
-                            <option value="d">Disney+</option>
-                            <option value="s">NowTV</option>
-                            <option value="f">Flight</option>
-                            <option value="a">Apple TV+</option>
-                            <option value="b">BBC iPlayer</option>
-                        </select>
-                    </div>
-                )}
+                <div className="form-group">
+                    <label className="form-label">Watched using</label>
+                    <select
+                        className="inputs"
+                        value={this.state.platform}
+                        onChange={this.platformChange}
+                        disabled={this.state.loading}
+                    >
+                        <option value="0">Select platform...</option>
+                        <option value="n">Netflix</option>
+                        <option value="p">Prime</option>
+                        <option value="c">Cinema</option>
+                        <option value="t">Television</option>
+                        <option value="r">Rakuten</option>
+                        <option value="d">Disney+</option>
+                        <option value="s">NowTV</option>
+                        <option value="f">Flight</option>
+                        <option value="a">Apple TV+</option>
+                        <option value="b">BBC iPlayer</option>
+                        <option value="h">HBO Max</option>
+                    </select>
+                </div>
 
                 {this.state.script !== "tvcurrent" && (
                     <div className="form-group">
@@ -259,9 +257,9 @@ class Home extends Component {
                     />
                 </div>
 
-                <button 
-                    className="submit-btn" 
-                    disabled={this.state.loading || this.state.requestSent} 
+                <button
+                    className="submit-btn"
+                    disabled={this.state.loading || this.state.requestSent}
                     onClick={() => this.sendRequest()}
                 >
                     {this.state.loading ? (
