@@ -75,13 +75,20 @@ class Home extends Component {
         const script = this.state.script;
         const name = this.state.name;
         const rating = this.state.rating;
-        const platform = this.state.script === "movie" || this.state.script === "yesterday" ? this.state.platform : "1";
-        const notes = this.state.notes;
+        const platform = this.state.script === "movie" || this.state.script === "yesterday" || this.state.script === "tvcurrent" ? this.state.platform : "1";
+        const notes = this.state.script === "tvcurrent" ? "" : this.state.notes;
         const password = this.state.password;
 
-        if (!name || rating === "0" || platform === "0"){
-            this.showToast("Movie Name, Rating & Watched Using needs to be filled in", "error");
-            return 0;
+        if (script === "tvcurrent") {
+            if (!name || platform === "0") {
+                this.showToast("TV show Name & Watched Using needs to be filled in", "error");
+                return 0;
+            }
+        } else {
+            if (!name || rating === "0" || platform === "0"){
+                this.showToast("Movie Name, Rating & Watched Using needs to be filled in", "error");
+                return 0;
+            }
         }
         if (this.state.loading || this.state.requestSent){
             this.showToast("Request has been sent, don't try twice...", "info");
@@ -133,8 +140,8 @@ class Home extends Component {
     }
 
     render() {
-        const isMovieOrYesterday = this.state.script === "movie" || this.state.script === "yesterday";
-        const placeholderText = this.state.script === "tv" ? "e.g., Breaking Bad" : "e.g., Inception";
+        const showPlatform = this.state.script === "movie" || this.state.script === "yesterday" || this.state.script === "tvcurrent";
+        const placeholderText = this.state.script === "tv" || this.state.script === "tvcurrent" ? "e.g., Breaking Bad" : "e.g., Inception";
 
         return (
             <div className="card">
@@ -166,11 +173,12 @@ class Home extends Component {
                         <option value="yesterday">Yesterday</option>
                         <option value="oldMovie">Old Movie</option>
                         <option value="tv">TV</option>
+                        <option value="tvcurrent">Current TV</option>
                     </select>
                 </div>
 
                 <div className="form-group">
-                    <label className="form-label">{this.state.script === "tv" ? "TV Show" : "Movie"} Name</label>
+                    <label className="form-label">{this.state.script === "tv" || this.state.script === "tvcurrent" ? "TV Show" : "Movie"} Name</label>
                     <input
                         className="inputs"
                         type="text"
@@ -181,25 +189,27 @@ class Home extends Component {
                     />
                 </div>
 
-                <div className="form-group">
-                    <label className="form-label">Rating</label>
-                    <select 
-                        className="inputs" 
-                        value={this.state.rating} 
-                        onChange={this.ratingChange}
-                        disabled={this.state.loading}
-                    >
-                        <option value="0">Select rating...</option>
-                        <option value="6">God tier</option>
-                        <option value="5">Loved</option>
-                        <option value="4">Liked</option>
-                        <option value="3">Average</option>
-                        <option value="2">Disliked</option>
-                        <option value="1">Hated</option>
-                    </select>
-                </div>
+                {this.state.script !== "tvcurrent" && (
+                    <div className="form-group">
+                        <label className="form-label">Rating</label>
+                        <select 
+                            className="inputs" 
+                            value={this.state.rating} 
+                            onChange={this.ratingChange}
+                            disabled={this.state.loading}
+                        >
+                            <option value="0">Select rating...</option>
+                            <option value="6">God tier</option>
+                            <option value="5">Loved</option>
+                            <option value="4">Liked</option>
+                            <option value="3">Average</option>
+                            <option value="2">Disliked</option>
+                            <option value="1">Hated</option>
+                        </select>
+                    </div>
+                )}
 
-                {isMovieOrYesterday && (
+                {showPlatform && (
                     <div className="form-group">
                         <label className="form-label">Watched using</label>
                         <select 
@@ -223,17 +233,19 @@ class Home extends Component {
                     </div>
                 )}
 
-                <div className="form-group">
-                    <label className="form-label">Notes</label>
-                    <input
-                        className="inputs"
-                        type="text"
-                        placeholder="Add optional notes..."
-                        value={this.state.notes}
-                        onChange={this.notesChange}
-                        disabled={this.state.loading}
-                    />
-                </div>
+                {this.state.script !== "tvcurrent" && (
+                    <div className="form-group">
+                        <label className="form-label">Notes</label>
+                        <input
+                            className="inputs"
+                            type="text"
+                            placeholder="Add optional notes..."
+                            value={this.state.notes}
+                            onChange={this.notesChange}
+                            disabled={this.state.loading}
+                        />
+                    </div>
+                )}
 
                 <div className="form-group">
                     <label className="form-label">Password</label>
